@@ -1,4 +1,4 @@
-module BBCloudGRPC_Microservice
+module bbcloud_grpc_microservice
 
 go 1.15
 

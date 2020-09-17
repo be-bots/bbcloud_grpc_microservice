@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "system";
+
+package system;
+
+service SystemService {
+    rpc GetSystem (SystemRequest) returns (System);
+}
+
+message SystemRequest {
+    int32 id = 1;
+}
+
+message System {
+    int32 id = 1;
+    string ds_id = 2;
+    string us_id = 3;
+}

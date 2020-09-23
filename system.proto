@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "system";
+option go_package = ".;system";
 
 package system;
 
@@ -16,4 +16,8 @@ message System {
     int32 id = 1;
     string ds_id = 2;
     string us_id = 3;
+}
+
+message Systems {
+    repeated System systems = 1;
 }

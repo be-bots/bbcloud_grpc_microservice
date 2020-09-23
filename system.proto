@@ -6,6 +6,7 @@ package system;
 
 service SystemService {
     rpc GetSystem (SystemRequest) returns (System);
+    rpc GetAllSystems () returns (Systems);
 }
 
 message SystemRequest {

@@ -1,4 +1,4 @@
-module bbcloud_grpc_microservice
+module github.com/be-bots/bbcloud_grpc_microservice
 
 go 1.15
 

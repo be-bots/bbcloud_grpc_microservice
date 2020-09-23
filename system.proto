@@ -2,11 +2,12 @@ syntax = "proto3";
 
 option go_package = ".;system";
 
+import "google/protobuf/empty.proto";
 package system;
 
 service SystemService {
     rpc GetSystem (SystemRequest) returns (System);
-    rpc GetAllSystems () returns (Systems);
+    rpc GetAllSystems (google.protobuf.Empty) returns (Systems);
 }
 
 message SystemRequest {

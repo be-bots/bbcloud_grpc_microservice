@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = ".;event_ps";
+
+import "google/protobuf/empty.proto";
+package event_ps;
+
+service EventPSService {
+    rpc Push (EventRequest) returns (EventResponse);
+}
+
+enum Type {
+    ACTION_REQUEST_RECEIVED = 0;
+    ACTION_STARTED = 1;
+    ACTION_FINISHED = 2;
+}
+
+message EventRequest {
+    int32 id = 1;
+    Type type = 2;
+}
+
+message EventResponse {
+    int32 id = 1;
+    Type type = 2;
+}

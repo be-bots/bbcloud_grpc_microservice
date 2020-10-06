@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = ".;datapoints";
+
+import "google/protobuf/empty.proto";
+package datapoints;
+
+service DatapointsService {
+    rpc Subscribe (SubscriptionRequest) returns (google.protobuf.Empty);
+}
+
+message SubscriptionRequest {
+    repeated string subscriptionIDs = 1;
+}

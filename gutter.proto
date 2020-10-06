@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = ".;model";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+package model;
+
+service GutterService {
+    rpc GetGutter (GutterRequest) returns (Gutter);
+    rpc GetAllGutters (google.protobuf.Empty) returns (Gutters);
+}
+
+message GutterRequest {
+    string rfid = 1;
+}
+
+message Gutter {
+    string rfid = 1;
+    google.protobuf.Timestamp prod_date = 2;
+    string status = 3;
+}
+
+message Gutters {
+    repeated Gutter gutters = 1;
+}

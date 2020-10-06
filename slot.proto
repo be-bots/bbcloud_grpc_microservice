@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = ".;model";
+
+import "system.proto";
+import "gutter.proto";
+import "robot.proto";
+import "google/protobuf/empty.proto";
+package model;
+
+service SlotService {
+    rpc GetSlot (SlotRequest) returns (Slot);
+    rpc GetAllSlots (google.protobuf.Empty) returns (Slots);
+}
+
+message SlotRequest {
+    int32 id = 1;
+}
+
+message Slot {
+    int32 id = 1;
+    int32 sid = 2;
+    System system = 3;
+    int32 rid = 4;
+    Robot robot = 5;
+    int32 pos = 6;
+    int32 gid = 7;
+    Gutter gutter = 8;
+    enum Type {
+        SORT_IN_AREA = 0;
+        TAKE_OUT_AREA = 1;
+        GROWING_AREA = 2;
+    }
+    Type type = 9;
+}
+
+message Slots {
+    repeated Slot slots = 1;
+}

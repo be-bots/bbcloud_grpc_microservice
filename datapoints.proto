@@ -7,10 +7,10 @@ import "google/protobuf/any.proto";
 package datapoints;
 
 service DatapointsService {
-    rpc SubscribeToResponses (google.protobuf.Empty) returns (stream SubscriptionResponse);
+    rpc RequestDatapoints (google.protobuf.Empty) returns (stream DatapointsRequestedStream);
 }
 
-message SubscriptionResponse {
+message DatapointsRequestedStream {
     string id = 1;
     map<string, google.protobuf.Any> data = 2; 
 }

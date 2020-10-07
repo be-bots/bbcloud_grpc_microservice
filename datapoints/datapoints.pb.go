@@ -9,6 +9,8 @@ package datapoints
 import (
 	context "context"
 	proto "github.com/golang/protobuf/proto"
+	any "github.com/golang/protobuf/ptypes/any"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -29,65 +31,19 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type SubscriptionRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	SubscriptionIDs []string `protobuf:"bytes,1,rep,name=subscriptionIDs,proto3" json:"subscriptionIDs,omitempty"`
-}
-
-func (x *SubscriptionRequest) Reset() {
-	*x = SubscriptionRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_datapoints_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SubscriptionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SubscriptionRequest) ProtoMessage() {}
-
-func (x *SubscriptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_datapoints_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SubscriptionRequest.ProtoReflect.Descriptor instead.
-func (*SubscriptionRequest) Descriptor() ([]byte, []int) {
-	return file_datapoints_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *SubscriptionRequest) GetSubscriptionIDs() []string {
-	if x != nil {
-		return x.SubscriptionIDs
-	}
-	return nil
-}
-
 type SubscriptionResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SuccessfullySubscribedIDs []string `protobuf:"bytes,1,rep,name=successfullySubscribedIDs,proto3" json:"successfullySubscribedIDs,omitempty"`
+	Id   string              `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Data map[string]*any.Any `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
 func (x *SubscriptionResponse) Reset() {
 	*x = SubscriptionResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_datapoints_proto_msgTypes[1]
+		mi := &file_datapoints_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -100,7 +56,7 @@ func (x *SubscriptionResponse) String() string {
 func (*SubscriptionResponse) ProtoMessage() {}
 
 func (x *SubscriptionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_datapoints_proto_msgTypes[1]
+	mi := &file_datapoints_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -113,12 +69,19 @@ func (x *SubscriptionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SubscriptionResponse.ProtoReflect.Descriptor instead.
 func (*SubscriptionResponse) Descriptor() ([]byte, []int) {
-	return file_datapoints_proto_rawDescGZIP(), []int{1}
+	return file_datapoints_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *SubscriptionResponse) GetSuccessfullySubscribedIDs() []string {
+func (x *SubscriptionResponse) GetId() string {
 	if x != nil {
-		return x.SuccessfullySubscribedIDs
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SubscriptionResponse) GetData() map[string]*any.Any {
+	if x != nil {
+		return x.Data
 	}
 	return nil
 }
@@ -127,25 +90,30 @@ var File_datapoints_proto protoreflect.FileDescriptor
 
 var file_datapoints_proto_rawDesc = []byte{
 	0x0a, 0x10, 0x64, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x12, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x22, 0x3f,
-	0x0a, 0x13, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x28, 0x0a, 0x0f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
-	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0f,
-	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x73, 0x22,
-	0x54, 0x0a, 0x14, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a, 0x19, 0x73, 0x75, 0x63, 0x63, 0x65,
-	0x73, 0x73, 0x66, 0x75, 0x6c, 0x6c, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65,
-	0x64, 0x49, 0x44, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x19, 0x73, 0x75, 0x63, 0x63,
-	0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x6c, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62,
-	0x65, 0x64, 0x49, 0x44, 0x73, 0x32, 0x63, 0x0a, 0x11, 0x44, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69,
-	0x6e, 0x74, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4e, 0x0a, 0x09, 0x53, 0x75,
-	0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x12, 0x1f, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x6f,
-	0x69, 0x6e, 0x74, 0x73, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70,
-	0x6f, 0x69, 0x6e, 0x74, 0x73, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0e, 0x5a, 0x0c, 0x2e, 0x3b,
-	0x64, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x74, 0x6f, 0x12, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x1a, 0x1b,
+	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f,
+	0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x61, 0x6e, 0x79,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xb5, 0x01, 0x0a, 0x14, 0x53, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x3e, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2a, 0x2e,
+	0x64, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e,
+	0x44, 0x61, 0x74, 0x61, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x1a,
+	0x4d, 0x0a, 0x09, 0x44, 0x61, 0x74, 0x61, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03,
+	0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x2a,
+	0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e,
+	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
+	0x41, 0x6e, 0x79, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x32, 0x67,
+	0x0a, 0x11, 0x44, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x12, 0x52, 0x0a, 0x14, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65,
+	0x54, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x73, 0x12, 0x16, 0x2e, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x1a, 0x20, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73,
+	0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x42, 0x0e, 0x5a, 0x0c, 0x2e, 0x3b, 0x64, 0x61, 0x74,
+	0x61, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -162,17 +130,21 @@ func file_datapoints_proto_rawDescGZIP() []byte {
 
 var file_datapoints_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_datapoints_proto_goTypes = []interface{}{
-	(*SubscriptionRequest)(nil),  // 0: datapoints.SubscriptionRequest
-	(*SubscriptionResponse)(nil), // 1: datapoints.SubscriptionResponse
+	(*SubscriptionResponse)(nil), // 0: datapoints.SubscriptionResponse
+	nil,                          // 1: datapoints.SubscriptionResponse.DataEntry
+	(*any.Any)(nil),              // 2: google.protobuf.Any
+	(*empty.Empty)(nil),          // 3: google.protobuf.Empty
 }
 var file_datapoints_proto_depIdxs = []int32{
-	0, // 0: datapoints.DatapointsService.Subscribe:input_type -> datapoints.SubscriptionRequest
-	1, // 1: datapoints.DatapointsService.Subscribe:output_type -> datapoints.SubscriptionResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: datapoints.SubscriptionResponse.data:type_name -> datapoints.SubscriptionResponse.DataEntry
+	2, // 1: datapoints.SubscriptionResponse.DataEntry.value:type_name -> google.protobuf.Any
+	3, // 2: datapoints.DatapointsService.SubscribeToResponses:input_type -> google.protobuf.Empty
+	0, // 3: datapoints.DatapointsService.SubscribeToResponses:output_type -> datapoints.SubscriptionResponse
+	3, // [3:4] is the sub-list for method output_type
+	2, // [2:3] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_datapoints_proto_init() }
@@ -182,18 +154,6 @@ func file_datapoints_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_datapoints_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SubscriptionRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_datapoints_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SubscriptionResponse); i {
 			case 0:
 				return &v.state
@@ -238,7 +198,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DatapointsServiceClient interface {
-	Subscribe(ctx context.Context, in *SubscriptionRequest, opts ...grpc.CallOption) (*SubscriptionResponse, error)
+	SubscribeToResponses(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DatapointsService_SubscribeToResponsesClient, error)
 }
 
 type datapointsServiceClient struct {
@@ -249,59 +209,86 @@ func NewDatapointsServiceClient(cc grpc.ClientConnInterface) DatapointsServiceCl
 	return &datapointsServiceClient{cc}
 }
 
-func (c *datapointsServiceClient) Subscribe(ctx context.Context, in *SubscriptionRequest, opts ...grpc.CallOption) (*SubscriptionResponse, error) {
-	out := new(SubscriptionResponse)
-	err := c.cc.Invoke(ctx, "/datapoints.DatapointsService/Subscribe", in, out, opts...)
+func (c *datapointsServiceClient) SubscribeToResponses(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DatapointsService_SubscribeToResponsesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DatapointsService_serviceDesc.Streams[0], "/datapoints.DatapointsService/SubscribeToResponses", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &datapointsServiceSubscribeToResponsesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type DatapointsService_SubscribeToResponsesClient interface {
+	Recv() (*SubscriptionResponse, error)
+	grpc.ClientStream
+}
+
+type datapointsServiceSubscribeToResponsesClient struct {
+	grpc.ClientStream
+}
+
+func (x *datapointsServiceSubscribeToResponsesClient) Recv() (*SubscriptionResponse, error) {
+	m := new(SubscriptionResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // DatapointsServiceServer is the server API for DatapointsService service.
 type DatapointsServiceServer interface {
-	Subscribe(context.Context, *SubscriptionRequest) (*SubscriptionResponse, error)
+	SubscribeToResponses(*empty.Empty, DatapointsService_SubscribeToResponsesServer) error
 }
 
 // UnimplementedDatapointsServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedDatapointsServiceServer struct {
 }
 
-func (*UnimplementedDatapointsServiceServer) Subscribe(context.Context, *SubscriptionRequest) (*SubscriptionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
+func (*UnimplementedDatapointsServiceServer) SubscribeToResponses(*empty.Empty, DatapointsService_SubscribeToResponsesServer) error {
+	return status.Errorf(codes.Unimplemented, "method SubscribeToResponses not implemented")
 }
 
 func RegisterDatapointsServiceServer(s *grpc.Server, srv DatapointsServiceServer) {
 	s.RegisterService(&_DatapointsService_serviceDesc, srv)
 }
 
-func _DatapointsService_Subscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SubscriptionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _DatapointsService_SubscribeToResponses_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(empty.Empty)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(DatapointsServiceServer).Subscribe(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datapoints.DatapointsService/Subscribe",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatapointsServiceServer).Subscribe(ctx, req.(*SubscriptionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(DatapointsServiceServer).SubscribeToResponses(m, &datapointsServiceSubscribeToResponsesServer{stream})
+}
+
+type DatapointsService_SubscribeToResponsesServer interface {
+	Send(*SubscriptionResponse) error
+	grpc.ServerStream
+}
+
+type datapointsServiceSubscribeToResponsesServer struct {
+	grpc.ServerStream
+}
+
+func (x *datapointsServiceSubscribeToResponsesServer) Send(m *SubscriptionResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 var _DatapointsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "datapoints.DatapointsService",
 	HandlerType: (*DatapointsServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "Subscribe",
-			Handler:    _DatapointsService_Subscribe_Handler,
+			StreamName:    "SubscribeToResponses",
+			Handler:       _DatapointsService_SubscribeToResponses_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "datapoints.proto",
 }

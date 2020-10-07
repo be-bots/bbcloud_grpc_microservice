@@ -2,16 +2,15 @@ syntax = "proto3";
 
 option go_package = ".;datapoints";
 
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
 package datapoints;
 
 service DatapointsService {
-    rpc Subscribe (SubscriptionRequest) returns (SubscriptionResponse);
-}
-
-message SubscriptionRequest {
-    repeated string subscriptionIDs = 1;
+    rpc SubscribeToResponses (google.protobuf.Empty) returns (stream SubscriptionResponse);
 }
 
 message SubscriptionResponse {
-    repeated string successfullySubscribedIDs = 1;
+    string id = 1;
+    map<string, google.protobuf.Any> data = 2; 
 }

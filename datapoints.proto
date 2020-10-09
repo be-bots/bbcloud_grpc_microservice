@@ -1,16 +1,39 @@
 syntax = "proto3";
 
-option go_package = ".;datapoints";
+option go_package = ".;events";
 
 import "google/protobuf/empty.proto";
-import "google/protobuf/any.proto";
-package datapoints;
+import "google/protobuf/timestamp.proto";
+package events;
 
-service DatapointsService {
-    rpc RequestDatapoints (google.protobuf.Empty) returns (stream DatapointsRequestedStream);
+service WateringService {
+    rpc GetWateringResponses (google.protobuf.Empty) returns (stream WateringResponse);
 }
 
-message DatapointsRequestedStream {
-    string id = 1;
-    map<string, google.protobuf.Any> data = 2; 
+message Source {
+    string Farm = 1;
+    int32 Cell = 2;
+    int32 Layer = 3;
+    int32 Slot = 4;
+    string RFID = 5;
+}
+
+message DataPoint {
+    int32 Xpos = 1;
+    float Temp = 2;
+    float Hum = 3;
+    float Press = 4;
+    string TopPhotoURI = 5;
+    string SidePhotoURI = 6;
+}
+
+message WateringResponse {
+    string ActionId = 1;
+    enum ResponseTypes {
+        WaterRunSuccess = 1;
+    }
+    ResponseTypes Type = 2;
+    google.protobuf.Timestamp Timestamp = 3;
+    Source Source = 4;
+    repeated Datapoint Datapoints = 5;
 }

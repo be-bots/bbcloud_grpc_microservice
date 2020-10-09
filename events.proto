@@ -18,7 +18,7 @@ message Source {
     string RFID = 5;
 }
 
-message DataPoint {
+message Datapoint {
     int32 Xpos = 1;
     float Temp = 2;
     float Hum = 3;
@@ -30,7 +30,7 @@ message DataPoint {
 message WateringResponse {
     string ActionId = 1;
     enum ResponseTypes {
-        WaterRunSuccess = 1;
+        WaterRunSuccess = 0;
     }
     ResponseTypes Type = 2;
     google.protobuf.Timestamp Timestamp = 3;

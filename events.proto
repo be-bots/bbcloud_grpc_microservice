@@ -18,22 +18,38 @@ message Source {
     string RFID = 5;
 }
 
+message Watering {
+    int32 PreWateringWeight = 1;
+    int32 PostWateringWeight = 2;
+    enum NossleType {
+        NotSpecified = 0;
+    }
+    NossleType TypeOfNossle = 3;
+    bool WaterFanCombination = 4;
+}
+
 message Datapoint {
     int32 Xpos = 1;
     float Temp = 2;
     float Hum = 3;
     float Press = 4;
-    string TopPhotoURI = 5;
-    string SidePhotoURI = 6;
+    string TopPhotoUri = 5;
+    string TopPhotoRedUri = 6;
+    string TopPhotoIRUri = 7;
+    string SidePhotoUri = 8;
+    string SidePhotoRedUri = 9;
+    string SidePhotoIRUri = 10;
 }
 
 message WateringResponse {
-    string ActionId = 1;
+    string MessageId = 1;
     enum ResponseTypes {
-        WaterRunSuccess = 0;
+        WaterRun = 0;
     }
     ResponseTypes Type = 2;
-    google.protobuf.Timestamp Timestamp = 3;
-    Source Source = 4;
-    repeated Datapoint Datapoints = 5;
+    string ActionId = 3;
+    google.protobuf.Timestamp Timestamp = 4;
+    Source Location = 5;
+    Watering Watering = 6;
+    repeated Datapoint Datapoints = 7;
 }

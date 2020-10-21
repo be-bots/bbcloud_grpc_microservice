@@ -21,10 +21,7 @@ message Source {
 message Watering {
     int32 PreWateringWeight = 1;
     int32 PostWateringWeight = 2;
-    enum NossleType {
-        NotSpecified = 0;
-    }
-    NossleType TypeOfNossle = 3;
+    string TypeOfNossle = 3;
     bool WaterFanCombination = 4;
 }
 
@@ -43,10 +40,7 @@ message Datapoint {
 
 message WateringResponse {
     string MessageId = 1;
-    enum ResponseTypes {
-        WaterRun = 0;
-    }
-    ResponseTypes Type = 2;
+    string Type = 2;
     string ActionId = 3;
     google.protobuf.Timestamp Timestamp = 4;
     Source Location = 5;

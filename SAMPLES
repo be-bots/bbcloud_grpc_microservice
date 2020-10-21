@@ -1,0 +1,55 @@
+{
+    "MessageId": "abcd",
+    "Type": "WaterRun",
+    "ActionId": "xxx",
+    "Timestamp": "2020-10-22T12:30:35Z",
+    "Location": {
+        "Farm": "Nirvana",
+        "Cell": 2,
+        "Layer": 5,
+        "Slot": 32,
+        "RFID": "04.2F.FF.D3.FF.DE"
+    },
+    "Watering": {
+        "PreWateringWeight": 2000,
+        "PostWateringWeight": 2250,
+        "TypeOfNossle": "NotSpecified",
+        "WaterFanCombination": false
+    },
+    "Datapoints": [{
+        "Xpos": 0,
+        "Temp": 20.5,
+        "Hum": 80.5,
+        "Press": 1000,
+        "TopPhotoUri": "top_pic_url",
+        "TopPhotoRedUri": "top_pic_red_url",
+        "TopPhotoIRUri": "top_pic_ir_url",
+        "SidePhotoUri": "side_pic_url",
+        "SidePhotoRedUri": "side_pic_red_url",
+        "SidePhotoIRUri": "side_pic_ir_url"
+    },
+    {
+        "Xpos": 500,
+        "Temp": 21.5,
+        "Hum": 82.5,
+        "Press": 1000,
+        "TopPhotoUri": "top_pic_url2",
+        "TopPhotoRedUri": "top_pic_red_url2",
+        "TopPhotoIRUri": "top_pic_ir_url2",
+        "SidePhotoUri": "side_pic_url2",
+        "SidePhotoRedUri": "side_pic_red_url2",
+        "SidePhotoIRUri": "side_pic_ir_url2"
+    },
+    {
+        "Xpos": 1000,
+        "Temp": 24.5,
+        "Hum": 83.5,
+        "Press": 1000,
+        "TopPhotoUri": "top_pic_url3",
+        "TopPhotoRedUri": "top_pic_red_url3",
+        "TopPhotoIRUri": "top_pic_ir_url3",
+        "SidePhotoUri": "side_pic_url3",
+        "SidePhotoRedUri": "side_pic_red_url3",
+        "SidePhotoIRUri": "side_pic_ir_url3"
+    }]
+}

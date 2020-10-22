@@ -12,7 +12,7 @@ service WateringService {
 }
 
 message Meta {
-    string id = 1;
+    string ID = 1;
 }
 
 message Source {

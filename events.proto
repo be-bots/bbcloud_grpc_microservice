@@ -15,6 +15,11 @@ message Meta {
     string ID = 1;
 }
 
+message Status {
+    bool ErrorOcurred = 1;
+    string ErrorType = 2;
+}
+
 message Source {
     string Farm = 1;
     int32 Cell = 2;
@@ -45,11 +50,12 @@ message Datapoint {
 
 message WateringResponse {
     Meta Meta = 1;
-    string MessageId = 2;
-    string Type = 3;
-    string ActionId = 4;
-    google.protobuf.Timestamp Timestamp = 5;
-    Source Location = 6;
-    Watering Watering = 7;
-    repeated Datapoint Datapoints = 8;
+    Status Status = 2;
+    string MessageId = 3;
+    string Type = 4;
+    string ActionId = 5;
+    google.protobuf.Timestamp Timestamp = 6;
+    Source Location = 7;
+    Watering Watering = 8;
+    repeated Datapoint Datapoints = 9;
 }

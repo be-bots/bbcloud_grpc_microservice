@@ -8,6 +8,7 @@ package events;
 
 service WateringService {
     rpc GetWateringResponses (google.protobuf.Empty) returns (stream WateringResponse);
+    rpc PostWateringResponses (WateringResponse) returns (google.protobuf.Empty);
 }
 
 message Source {

@@ -11,6 +11,10 @@ service WateringService {
     rpc PostWateringResponses (WateringResponse) returns (google.protobuf.Empty);
 }
 
+message Meta {
+    string id = 1;
+}
+
 message Source {
     string Farm = 1;
     int32 Cell = 2;
@@ -40,11 +44,12 @@ message Datapoint {
 }
 
 message WateringResponse {
-    string MessageId = 1;
-    string Type = 2;
-    string ActionId = 3;
-    google.protobuf.Timestamp Timestamp = 4;
-    Source Location = 5;
-    Watering Watering = 6;
-    repeated Datapoint Datapoints = 7;
+    Meta meta = 1;
+    string MessageId = 2;
+    string Type = 3;
+    string ActionId = 4;
+    google.protobuf.Timestamp Timestamp = 5;
+    Source Location = 6;
+    Watering Watering = 7;
+    repeated Datapoint Datapoints = 8;
 }

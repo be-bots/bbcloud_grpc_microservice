@@ -44,7 +44,7 @@ message Datapoint {
 }
 
 message WateringResponse {
-    Meta meta = 1;
+    Meta Meta = 1;
     string MessageId = 2;
     string Type = 3;
     string ActionId = 4;

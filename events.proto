@@ -7,7 +7,7 @@ import "google/protobuf/timestamp.proto";
 package events;
 
 service WateringService {
-    rpc GetWateringResponses (google.protobuf.Empty) returns (stream WateringResponse);
+    rpc GetWateringResponses (Meta) returns (stream WateringResponse);
     rpc PostWateringResponses (WateringResponse) returns (google.protobuf.Empty);
 }
 
@@ -44,12 +44,11 @@ message Datapoint {
 }
 
 message WateringResponse {
-    Meta meta = 1;
-    string MessageId = 2;
-    string Type = 3;
-    string ActionId = 4;
-    google.protobuf.Timestamp Timestamp = 5;
-    Source Location = 6;
-    Watering Watering = 7;
-    repeated Datapoint Datapoints = 8;
+    string MessageId = 1;
+    string Type = 2;
+    string ActionId = 3;
+    google.protobuf.Timestamp Timestamp = 4;
+    Source Location = 5;
+    Watering Watering = 6;
+    repeated Datapoint Datapoints = 7;
 }
